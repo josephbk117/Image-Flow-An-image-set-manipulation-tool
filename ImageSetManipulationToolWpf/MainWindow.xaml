@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:ImageSetManipulationToolWpf"
         mc:Ignorable="d"
         Title="Image Set Processing Tool" Height="435.725" Width="832" MinWidth="530" MinHeight="440">
-    <Grid Background="#FFFFF2A0">
-        <TextBox x:Name="folderPathTextBox" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" Height="33" Margin="10,10,139,0" TextWrapping="Wrap" Text="Input Folder Path" VerticalAlignment="Top" Background="#FFFFA02F" Foreground="White"/>
-        <TextBox x:Name="outputFolderPathTextBox" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" Height="33" Margin="10,48,139,0" TextWrapping="Wrap" Text="Output Folder Path" VerticalAlignment="Top" Background="#FFFFA02F" Foreground="White"/>
+    <Grid Background="#FFFFF2A0">        
+        <TextBox x:Name="folderPathTextBox" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" Height="33" Margin="10,10,139,0" TextWrapping="Wrap" Text="Input Folder Path" VerticalAlignment="Top" Background="#FFFFA02F" Foreground="White" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+        <TextBox x:Name="outputFolderPathTextBox" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" Height="33" Margin="10,48,139,0" TextWrapping="Wrap" Text="Output Folder Path" VerticalAlignment="Top" Background="#FFFFA02F" Foreground="White" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
         <Rectangle x:Name="openFolderButton1" StrokeThickness="5" Fill="#FFFFA02F" Height="33" Margin="0,10,10,0" Stroke="#FFFFCD46" VerticalAlignment="Top" HorizontalAlignment="Right" Width="124" MouseLeftButtonUp="openFolderButton_OnLBU"/>
         <Rectangle x:Name="openFolderButton2" StrokeThickness="5" Fill="#FFFFA02F" Height="33" Margin="0,48,10,0" Stroke="#FFFFCD46" VerticalAlignment="Top" HorizontalAlignment="Right" Width="124" MouseLeftButtonUp="openFolderButton_OnLBU"/>
         <StackPanel x:Name="operationStack" Margin="0,91,10,10" HorizontalAlignment="Right" Width="248" Background="#FFFFB900">
@@ -18,39 +18,39 @@
         <StackPanel Margin="10,91,263,55" Background="#FFFFB900" MinWidth="300" MinHeight="280">
             <DockPanel LastChildFill="False" Background="#FFFFCD46">
                 <Label Content="Brightness" FontSize="14" Margin="10,10,10,10" Width="100" Foreground="White"/>
-                <TextBox x:Name="brightnessValueText" Text="value" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F"/>
+                <TextBox x:Name="brightnessValueText" Text="value" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                 <Button DockPanel.Dock="Right" Width="124" Content="ADD" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddBrightness" Foreground="White"/>
             </DockPanel>
             <DockPanel LastChildFill="False">
                 <Label Content="Contrast" FontSize="14" Margin="10,10,10,10" Width="100" Foreground="White"/>
-                <TextBox x:Name="contrastValueText" Text="value" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F"/>
+                <TextBox x:Name="contrastValueText" Text="value" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                 <Button DockPanel.Dock="Right" Content="ADD" FontSize="16" Width="124" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddContrast" Foreground="White"/>
             </DockPanel>
             <DockPanel LastChildFill="False" Background="#FFFFCD46">
                 <Label Content="Desturation" FontSize="14" Margin="10,10,10,10" Width="100" Foreground="White"/>
-                <TextBox x:Name="desaturationValueText" Text="value" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F"/>
+                <TextBox x:Name="desaturationValueText" Text="value" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                 <Button Content="ADD" Width="124" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddDesaturation" Foreground="White"/>
             </DockPanel>
             <DockPanel LastChildFill="False">
                 <Label Content="Crop" FontSize="14" Margin="10,10,10,10" Width="100" Foreground="White"/>
-                <TextBox x:Name="cropXValue" Text="x" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F"/>
-                <TextBox x:Name="cropYValue"  Text="y" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F"/>
-                <TextBox x:Name="cropWidthValue"  Text="width" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F"/>
-                <TextBox x:Name="cropHeightValue"  Text="height" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F"/>
+                <TextBox x:Name="cropXValue" Text="x" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+                <TextBox x:Name="cropYValue"  Text="y" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+                <TextBox x:Name="cropWidthValue"  Text="width" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+                <TextBox x:Name="cropHeightValue"  Text="height" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                 <Button Content="ADD" Width="124" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddCrop" Foreground="White"/>
             </DockPanel>
             <DockPanel LastChildFill="False" Background="#FFFFCD46">
                 <Label Content="Resize" FontSize="14" Margin="10,10,10,10" Width="100" Foreground="White"/>
-                <TextBox x:Name="resizeWidth" Text="width" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F"/>
-                <TextBox x:Name="resizeHeight" Text="height" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F"/>
+                <TextBox x:Name="resizeWidth" Text="width" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+                <TextBox x:Name="resizeHeight" Text="height" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                 <Button Content="ADD" Width="124" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Foreground="White" Click="AddResize"/>
             </DockPanel>
         </StackPanel>
-        <Grid x:Name="dialogGrid" Background="#59000000" Visibility="Hidden">
+        <Grid x:Name="dialogGrid" Background="#59000000" Visibility="Hidden" IsHitTestVisible="False">
             <Rectangle Fill="#66000000" Height="150" StrokeThickness="5" VerticalAlignment="Center" Margin="0" Stroke="White"/>
             <Label x:Name="dialogMessageTitle" Content="Message To User" FontSize="30" VerticalContentAlignment="Top" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,130,0,229" Height="50" Foreground="White"/>
             <Label x:Name="dialogMessageContent" Content="Details To User" FontSize="22" VerticalAlignment="Center" Margin="10,185,10,170" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="804" Height="54" Foreground="White"/>
-            <Rectangle Fill="#80FFFFFF" Width="80" Height="30" StrokeThickness="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" MouseLeftButtonUp="dialogRectangleOk_LBU"/>
+            <Rectangle Fill="#66FFFFFF" Width="80" Height="30" StrokeThickness="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" MouseLeftButtonUp="dialogRectangleOk_LBU"/>
             <Label Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Margin="0,102,0,0" IsHitTestVisible="False" Foreground="White"/>
         </Grid>
     </Grid>

@@ -82,7 +82,7 @@ namespace ImageSetManipulationToolWpf
             {
                 DialogShow("Wrong Input", "Input correct brightness value, Range(-255 - 255)");
                 return;
-            }            
+            }
             AddToOperationStack("Brightness : " + brightnessValueText.Text);
         }
 
@@ -96,7 +96,7 @@ namespace ImageSetManipulationToolWpf
             {
                 DialogShow("Wrong Input", "Input correct contast value, Range(0.0 - 100.0)");
                 return;
-            }           
+            }
 
             AddToOperationStack("Contrast : " + contrastValueText.Text);
         }
@@ -125,7 +125,7 @@ namespace ImageSetManipulationToolWpf
             {
                 DialogShow("Wrong Input", "Check your crop parameters");
                 return;
-            }            
+            }
             AddToOperationStack("Crop : " + cropXValue.Text + "," + cropYValue.Text + "," + cropWidthValue.Text + "," + cropHeightValue.Text);
         }
         private void AddResize(object sender, RoutedEventArgs e)
@@ -138,7 +138,7 @@ namespace ImageSetManipulationToolWpf
             {
                 DialogShow("Wrong Input", "Check your resize parameters");
                 return;
-            }            
+            }
             AddToOperationStack("Resize : " + resizeWidth.Text + "," + resizeHeight.Text);
         }
         private void AddToOperationStack(string content)
@@ -151,11 +151,18 @@ namespace ImageSetManipulationToolWpf
             dialogGrid.Visibility = Visibility.Hidden;
         }
 
-        private void DialogShow(string message,string content)
+        private void DialogShow(string message, string content)
         {
+            dialogGrid.IsHitTestVisible = true;
             dialogGrid.Visibility = Visibility.Visible;
             dialogMessageTitle.Content = message;
             dialogMessageContent.Content = content;
+        }
+
+        private void TextboxClearOnLMU(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine("LOLz");
+            ((System.Windows.Controls.TextBox)(sender)).Text = "";
         }
     }
 }
