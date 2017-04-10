@@ -33,13 +33,18 @@ namespace ImageSetManipulationToolWpf
         private void openFolderButton_OnLBU(object sender, MouseButtonEventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (object.Equals(openFolderButton1, sender))
+            if (Equals(openFolderButton1, sender))
             {
                 fbd.ShowNewFolderButton = false;
                 if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    folderPathTextBox.Text = fbd.SelectedPath;
+                {                    
                     files = Directory.GetFiles(fbd.SelectedPath);
+                    if(files.Length == 0)
+                    {
+                        DialogShow("No Input", "There are no image files in folder");
+                        return;
+                    }
+                    folderPathTextBox.Text = fbd.SelectedPath;
                 }
             }
             else
@@ -54,7 +59,20 @@ namespace ImageSetManipulationToolWpf
 
         private void generateImagesButton_OnLBU(object sender, MouseButtonEventArgs e)
         {
-            Bitmap[] bitmaps = new Bitmap[files.Length];
+            if (operationStack.Children.Count < 2)
+            {
+                DialogShow("No Operations", "There are no operations in the stack");
+                return;
+            }
+            Bitmap[] bitmaps;
+            try
+            {
+                bitmaps = new Bitmap[files.Length];
+            }catch(NullReferenceException)
+            {
+                DialogShow("No Input", "Provide input image files");
+                return;
+            }
             for (int i = 0; i < bitmaps.Length; i++)
             {
                 bitmaps[i] = new Bitmap(files[i]);
