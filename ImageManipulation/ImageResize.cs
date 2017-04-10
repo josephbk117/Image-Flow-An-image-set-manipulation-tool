@@ -15,6 +15,11 @@ namespace ImageManipulation
             this.height = newHeight;
             this.width = newWidth;
         }
+        public ImageResize(int newWidth, int newHeight)
+        {            
+            this.height = newHeight;
+            this.width = newWidth;
+        }
 
         public Bitmap PerformManipuation()
         {
@@ -47,7 +52,7 @@ namespace ImageManipulation
 
         public void SetBitmap(Bitmap bitmap)
         {
-            
+            bmp = (Bitmap)bitmap.Clone();
         }
     }
 }
