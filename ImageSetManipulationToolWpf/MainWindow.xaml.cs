@@ -82,8 +82,8 @@ namespace ImageSetManipulationToolWpf
                     man.SetBitmap(bitmaps[i]);
                     PerformManiplation(man, ref bitmaps[i]);
                 }
-                bitmaps[i].Save(outputFolderPathTextBox.Text + "/outImage" + i + ".bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-            }
+               bitmaps[i].Save(outputFolderPathTextBox.Text + "/outImage" + i + ".bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+            }            
         }
         private void PerformManiplation(IMageManipulation manipulation, ref Bitmap bmp)
         {
@@ -181,6 +181,20 @@ namespace ImageSetManipulationToolWpf
         {
             Console.WriteLine("LOLz");
             ((System.Windows.Controls.TextBox)(sender)).Text = "";
+        }
+
+        private void AddBlur(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                manipulations.Add(new ImageBlur(ImageBlur.KernelSize.Small, int.Parse(blurValue.Text)));
+            }
+            catch (FormatException)
+            {
+                DialogShow("Wrong Input", "Check your blur value");
+                return;
+            }
+            AddToOperationStack("Blur : " + "Small ,"+blurValue.Text);
         }
     }
 }

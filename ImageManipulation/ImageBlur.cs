@@ -11,27 +11,53 @@ namespace ImageManipulation
     public class ImageBlur : IMageManipulation
     {
         Bitmap bmp;
-        int kernelSize, blurAmount;
+        int kernelSize, blurAmount;       
 
-        public ImageBlur(Bitmap bitmap, int kernelSize, int blurAmount)
+        public enum KernelSize
+        {
+            Small,
+            Medium,
+            Large
+        }
+
+        public ImageBlur(Bitmap bitmap, KernelSize kernelSize, int blurAmount)
         {
             bmp = bitmap.Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), bitmap.PixelFormat);
-            this.kernelSize = kernelSize;
+            switch(kernelSize)
+            {
+                case KernelSize.Small:
+                    this.kernelSize = 5;break;
+                case KernelSize.Medium:
+                    this.kernelSize = 7;break;
+                case KernelSize.Large:
+                    this.kernelSize = 11;break;
+            }            
+            this.blurAmount = blurAmount;
+        }
+        public ImageBlur(KernelSize kernelSize, int blurAmount)
+        {            
+            switch (kernelSize)
+            {
+                case KernelSize.Small:
+                    this.kernelSize = 5; break;
+                case KernelSize.Medium:
+                    this.kernelSize = 7; break;
+                case KernelSize.Large:
+                    this.kernelSize = 11; break;
+            }
             this.blurAmount = blurAmount;
         }
 
         public Bitmap PerformManipuation()
         {
-
             Bitmap newBmp;
             unsafe
             {
                 newBmp = bmp.Clone(new Rectangle(0, 0, bmp.Width, bmp.Height), bmp.PixelFormat);
-                //TODO : set lock mode to read only
+
                 BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),
                     ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
-                /*-*/
                 BitmapData newBmpData = newBmp.LockBits(new Rectangle(0, 0, newBmp.Width, newBmp.Height),
                     ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
                 int bytesPerPixel = Bitmap.GetPixelFormatSize(bmp.PixelFormat) / 8;
@@ -39,68 +65,37 @@ namespace ImageManipulation
                 int widthInBytes = bmp.Width * bytesPerPixel;
 
                 byte* firstPixelPtr = (byte*)bmpData.Scan0;
-                /*-*/
                 byte* firstNewPixelPtr = (byte*)newBmpData.Scan0;
-                Console.WriteLine("Stride value = " + bmpData.Stride + ", " + newBmpData.Stride);
-                Console.WriteLine("Width in byes = " + widthInBytes);
-                Console.WriteLine("First pixel = " + firstPixelPtr[0] + "," + firstPixelPtr[1] + ", " + firstPixelPtr[2]);
 
-                //Height in pixels same
                 Parallel.For(0, heightInPixels, y =>
                 {
                     byte* currentLine = firstPixelPtr + (y * bmpData.Stride);
-                    /*-*/
                     byte* newCurrentLine = firstNewPixelPtr + (y * newBmpData.Stride);
-
                     for (int x = 0; x < widthInBytes; x = x + bytesPerPixel)
                     {
-                        int prevYindex = y - 1;
-                        int nextYinex = y + 1;
-                        byte* prevLine;
-                        byte* nextLine;
-                        if (y > 0)
-                            prevLine = firstPixelPtr + ((y - 1) * bmpData.Stride);
-                        else
-                            prevLine = firstPixelPtr + (y * bmpData.Stride);
-                        if (y < heightInPixels - 1)
-                            nextLine = firstPixelPtr + ((y + 1) * bmpData.Stride);
-                        else
-                            nextLine = firstPixelPtr + (y * bmpData.Stride);
-
-                        int currBlue = currentLine[x];
-                        int currGreen = currentLine[x + 1];
-                        int currRed = currentLine[x + 2];
-
-                        int upBlue = prevLine[x];
-                        int upGreen = prevLine[x + 1];
-                        int upRed = prevLine[x + 2];
-
-                        int downBlue = nextLine[x];
-                        int downGreen = nextLine[x + 1];
-                        int downRed = nextLine[x + 2];
-
-                        int leftBlue = currBlue, leftGreen = currGreen, leftRed = currRed;
-                        int rightBlue = currBlue, rightGreen = currGreen, rightRed = currRed;
-                        if (x - 3 >= 0)
+                        int avgBl = 0;
+                        int avgGl = 0;
+                        int avgRl = 0;
+                        for (int line = y - kernelSize / 2; line <= y + kernelSize / 2; line++)
                         {
-                            leftBlue = currentLine[x - 3];
-                            leftGreen = currentLine[x - 2];
-                            leftRed = currentLine[x - 1];
-                        }
-                        if (x + 5 <= widthInBytes)
-                        {
-                            rightBlue = currentLine[x + 3];
-                            rightGreen = currentLine[x + 4];
-                            rightRed = currentLine[x + 5];
-                        }
+                            if (line > 0 && line < heightInPixels)
+                            {
+                                byte* linePtr = firstPixelPtr + (line * bmpData.Stride);
 
-                        byte avgB = ClampValue((currBlue + upBlue + downBlue + leftBlue + rightBlue) / 5f);
-                        byte avgG = ClampValue((currGreen + upGreen + downGreen + leftGreen + rightGreen) / 5f);
-                        byte avgR = ClampValue((currRed + upRed + downRed + leftRed + rightRed) / 5f);
-
-                        newCurrentLine[x] = avgB;
-                        newCurrentLine[x + 1] = avgG;
-                        newCurrentLine[x + 2] = avgR;
+                                if (x - 6 > 0 && x + 9 < widthInBytes)
+                                {
+                                    for (int val = x - (2 * 3); val < x + (3 * 3); val += 3)
+                                    {
+                                        avgBl += linePtr[val];
+                                        avgGl += linePtr[val + 1];
+                                        avgRl += linePtr[val + 2];
+                                    }
+                                }
+                            }
+                        }
+                        newCurrentLine[x] = (byte)(avgBl / (kernelSize * kernelSize));
+                        newCurrentLine[x + 1] = (byte)(avgGl / (kernelSize * kernelSize));
+                        newCurrentLine[x + 2] = (byte)(avgRl / (kernelSize * kernelSize));
                     }
                 });
                 bmp.UnlockBits(bmpData);
@@ -112,7 +107,7 @@ namespace ImageManipulation
 
         public void SetBitmap(Bitmap bitmap)
         {
-
+            bmp = bitmap.Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), bitmap.PixelFormat);
         }
 
         private byte ClampValue(float value)
