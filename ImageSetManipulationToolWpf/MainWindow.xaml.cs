@@ -177,6 +177,12 @@ namespace ImageSetManipulationToolWpf
             addedIndex++;
         }
 
+        private void RemoveFromOperationStack()
+        {
+            if (operationStack.Children.Count > 1)
+                operationStack.Children.RemoveAt(operationStack.Children.Count - 1);
+        }
+
         private void dialogRectangleOk_LBU(object sender, MouseButtonEventArgs e)
         {
             dialogGrid.Visibility = Visibility.Hidden;
@@ -192,7 +198,6 @@ namespace ImageSetManipulationToolWpf
 
         private void TextboxClearOnLMU(object sender, MouseButtonEventArgs e)
         {
-            Console.WriteLine("LOLz");
             ((System.Windows.Controls.TextBox)(sender)).Text = "";
         }
 
@@ -217,6 +222,24 @@ namespace ImageSetManipulationToolWpf
                 return;
             }
             AddToOperationStack("Blur : " + "Small ," + blurValue.Text);
+        }
+
+        private void StackOperationButtons_OnClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender.Equals(removeStackOperator))
+            {
+                RemoveFromOperationStack();
+            }
+            else if (sender.Equals(moveUpStackOperator))
+            {
+                ReplaceStackObjects((System.Windows.Controls.Label)operationStack.Children[operationStack.Children.Count - 1], (System.Windows.Controls.Label)operationStack.Children[operationStack.Children.Count - 2]);
+            }
+        }
+        private void ReplaceStackObjects(System.Windows.Controls.Label lbl1, System.Windows.Controls.Label lbl2)
+        {
+            operationStack.Children.RemoveRange(operationStack.Children.Count - 2, 2);
+            operationStack.Children.Add(lbl1);
+            operationStack.Children.Add(lbl2);
         }
     }
 }

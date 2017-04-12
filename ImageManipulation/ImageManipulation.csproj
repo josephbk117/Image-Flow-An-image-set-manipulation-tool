@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="blurtext.txt" />
-    <Content Include="loloImagemultilogoIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

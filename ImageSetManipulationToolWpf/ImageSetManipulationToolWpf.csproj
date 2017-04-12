@@ -135,5 +135,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MINbTN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arraowUPUse.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
