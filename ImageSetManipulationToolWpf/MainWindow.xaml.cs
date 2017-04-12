@@ -37,9 +37,9 @@ namespace ImageSetManipulationToolWpf
             {
                 fbd.ShowNewFolderButton = false;
                 if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {                    
+                {
                     files = Directory.GetFiles(fbd.SelectedPath);
-                    if(files.Length == 0)
+                    if (files.Length == 0)
                     {
                         DialogShow("No Input", "There are no image files in folder");
                         return;
@@ -68,7 +68,8 @@ namespace ImageSetManipulationToolWpf
             try
             {
                 bitmaps = new Bitmap[files.Length];
-            }catch(NullReferenceException)
+            }
+            catch (NullReferenceException)
             {
                 DialogShow("No Input", "Provide input image files");
                 return;
@@ -82,8 +83,8 @@ namespace ImageSetManipulationToolWpf
                     man.SetBitmap(bitmaps[i]);
                     PerformManiplation(man, ref bitmaps[i]);
                 }
-               bitmaps[i].Save(outputFolderPathTextBox.Text + "/outImage" + i + ".bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-            }            
+                bitmaps[i].Save(outputFolderPathTextBox.Text + "/outImage" + i + ".bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+            }
         }
         private void PerformManiplation(IMageManipulation manipulation, ref Bitmap bmp)
         {
@@ -98,7 +99,7 @@ namespace ImageSetManipulationToolWpf
             }
             catch (FormatException)
             {
-                DialogShow("Wrong Input", "Input correct brightness value, Range(-255 - 255)");
+                DialogShow("Wrong Input", "Input correct brightness value, Range(-255 to 255)");
                 return;
             }
             AddToOperationStack("Brightness : " + brightnessValueText.Text);
@@ -161,7 +162,8 @@ namespace ImageSetManipulationToolWpf
         }
         private void AddToOperationStack(string content)
         {
-            operationStack.Children.Add(new System.Windows.Controls.Label() { Content = content, HorizontalAlignment = System.Windows.HorizontalAlignment.Center, Foreground = System.Windows.Media.Brushes.White });
+            operationStack.Children.Add(new System.Windows.Controls.Label() { Content = content, HorizontalAlignment = System.Windows.HorizontalAlignment.Center, Foreground = System.Windows.Media.Brushes.White,
+                FontSize=16});
         }
 
         private void dialogRectangleOk_LBU(object sender, MouseButtonEventArgs e)
@@ -187,14 +189,23 @@ namespace ImageSetManipulationToolWpf
         {
             try
             {
-                manipulations.Add(new ImageBlur(ImageBlur.KernelSize.Small, int.Parse(blurValue.Text)));
+                ImageBlur.KernelSize kernelSize;
+                switch ((string)kernelComboBox.SelectedItem.ToString())
+                {
+                    case "Small": kernelSize = ImageBlur.KernelSize.Small; break;
+                    case "Medium": kernelSize = ImageBlur.KernelSize.Medium; break;
+                    case "Large": kernelSize = ImageBlur.KernelSize.Large; break;
+                    default: kernelSize = ImageBlur.KernelSize.Small; break;
+                }
+
+                manipulations.Add(new ImageBlur(kernelSize, int.Parse(blurValue.Text)));
             }
             catch (FormatException)
             {
                 DialogShow("Wrong Input", "Check your blur value");
                 return;
             }
-            AddToOperationStack("Blur : " + "Small ,"+blurValue.Text);
+            AddToOperationStack("Blur : " + "Small ," + blurValue.Text);
         }
     }
 }
