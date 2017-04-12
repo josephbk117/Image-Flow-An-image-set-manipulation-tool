@@ -160,10 +160,21 @@ namespace ImageSetManipulationToolWpf
             }
             AddToOperationStack("Resize : " + resizeWidth.Text + "," + resizeHeight.Text);
         }
+        static int addedIndex = 1;
         private void AddToOperationStack(string content)
         {
-            operationStack.Children.Add(new System.Windows.Controls.Label() { Content = content, HorizontalAlignment = System.Windows.HorizontalAlignment.Center, Foreground = System.Windows.Media.Brushes.White,
-                FontSize=16});
+            System.Windows.Controls.Label lbl = new System.Windows.Controls.Label()
+            {
+                Content = content,
+                HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
+                Foreground = System.Windows.Media.Brushes.White,
+                FontSize = 16
+            };
+            if (addedIndex % 2 != 0)
+                lbl.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 205, 70));
+
+            operationStack.Children.Add(lbl);
+            addedIndex++;
         }
 
         private void dialogRectangleOk_LBU(object sender, MouseButtonEventArgs e)
