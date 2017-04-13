@@ -232,7 +232,7 @@ namespace ImageSetManipulationToolWpf
             }
             else if (sender.Equals(moveUpStackOperator))
             {
-                if(operationStack.Children.Count >= 2)
+                if (operationStack.Children.Count >= 2)
                     ReplaceStackObjects((System.Windows.Controls.Label)operationStack.Children[operationStack.Children.Count - 1], (System.Windows.Controls.Label)operationStack.Children[operationStack.Children.Count - 2]);
             }
         }
@@ -241,6 +241,21 @@ namespace ImageSetManipulationToolWpf
             operationStack.Children.RemoveRange(operationStack.Children.Count - 2, 2);
             operationStack.Children.Add(lbl1);
             operationStack.Children.Add(lbl2);
+        }
+
+        private void AddTextOverlay(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                manipulations.Add(new ImageTextOverlay(textOverlayText.Text, "Arial", "normal", float.Parse(fontSize.Text), System.Drawing.Color.Black,
+                    System.Drawing.Color.Blue, int.Parse(xOffset.Text), int.Parse(yOffset.Text)));
+            }
+            catch(FormatException)
+            {
+                DialogShow("Wrong Input", "Check your text attribute values");
+                return;
+            }
+            AddToOperationStack("Text Overlay : " + textOverlayText.Text + " at " + xOffset.Text + ", "+yOffset.Text);
         }
     }
 }

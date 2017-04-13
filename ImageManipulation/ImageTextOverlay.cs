@@ -26,6 +26,19 @@ namespace ImageManipulation
             this.yPosition = yPosition;
         }
 
+        public ImageTextOverlay(string text, string fontName, string fontStyle, float fontSize,
+                Color colour1, Color colour2, int xPosition, int yPosition)
+        {
+            this.text = text;
+            this.fontName = fontName;
+            this.fontStyle = fontStyle;
+            this.colour1 = colour1;
+            this.colour2 = colour2;
+            this.fontSize = fontSize;
+            this.xPosition = xPosition;
+            this.yPosition = yPosition;
+        }
+
         public Bitmap PerformManipuation()
         {
             Graphics gr = Graphics.FromImage(bmp);
@@ -70,7 +83,7 @@ namespace ImageManipulation
 
         public void SetBitmap(Bitmap bitmap)
         {
-
+            bmp = (Bitmap)bitmap.Clone();
         }
     }
 }

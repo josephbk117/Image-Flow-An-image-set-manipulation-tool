@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ImageSetManipulationToolWpf"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="ImageSetManipulationToolWpf.MainWindow"
         mc:Ignorable="d"
-        Title="Image Set Processing Tool" Height="490" Width="832" MinWidth="530" MinHeight="440">
+        Title="Image Set Processing Tool" Height="683" Width="888.5" MinWidth="530" MinHeight="440">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -612,6 +612,16 @@
                     </ComboBox>
                     <TextBox x:Name="blurValue" Text="blur" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                     <Button Content="ADD" Width="124" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Foreground="White" Click="AddBlur"/>
+                </DockPanel>
+                <DockPanel LastChildFill="False" Background="#FFFFCD46">
+                    <Label Content="Text Overlay" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="110" Foreground="White"/>
+                    <TextBox x:Name="textOverlayText" Text="Text To Be Displayed" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="240" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+                    <Button Content="ADD" Width="124" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Foreground="White" Click="AddTextOverlay"/>                    
+                </DockPanel>
+                <DockPanel LastChildFill="False" Background="#FFFFCD46" >                    
+                    <TextBox x:Name="xOffset" Text="x" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+                    <TextBox x:Name="yOffset" Text="y" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+                    <TextBox x:Name="fontSize" Text="size" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                 </DockPanel>
             </StackPanel>
         </Grid>
