@@ -179,7 +179,7 @@ namespace ImageSetManipulationToolWpf
 
         private void RemoveFromOperationStack()
         {
-            if (operationStack.Children.Count > 1)
+            if (operationStack.Children.Count >= 1)
                 operationStack.Children.RemoveAt(operationStack.Children.Count - 1);
         }
 
@@ -232,7 +232,8 @@ namespace ImageSetManipulationToolWpf
             }
             else if (sender.Equals(moveUpStackOperator))
             {
-                ReplaceStackObjects((System.Windows.Controls.Label)operationStack.Children[operationStack.Children.Count - 1], (System.Windows.Controls.Label)operationStack.Children[operationStack.Children.Count - 2]);
+                if(operationStack.Children.Count >= 2)
+                    ReplaceStackObjects((System.Windows.Controls.Label)operationStack.Children[operationStack.Children.Count - 1], (System.Windows.Controls.Label)operationStack.Children[operationStack.Children.Count - 2]);
             }
         }
         private void ReplaceStackObjects(System.Windows.Controls.Label lbl1, System.Windows.Controls.Label lbl2)
