@@ -298,8 +298,8 @@
         <Label Content="Open Folder" IsHitTestVisible="False" Foreground="White" Margin="0,48,10,0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="124" Height="33" VerticalAlignment="Top"/>
         <Grid Margin="0,86,0,64">
             <!--Right stack-->
-            <Label Content="Operation Set" Margin="566,0,10,0" FontSize="24" Foreground="White" Background="#FFFFA02F" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" VerticalAlignment="Top"/>
-            <ScrollViewer SnapsToDevicePixels="True" Margin="566,50,10,0" ScrollViewer.VerticalScrollBarVisibility="Auto" Template="{DynamicResource ModernScrollViewer}" Style="{DynamicResource FocusVisual}">
+            <Label Content="Operation Set" Margin="502,0,10,0" FontSize="24" Foreground="White" Background="#FFFFA02F" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" VerticalAlignment="Top"/>
+            <ScrollViewer SnapsToDevicePixels="True" Margin="502,50,10,0" ScrollViewer.VerticalScrollBarVisibility="Auto" Template="{DynamicResource ModernScrollViewer}" Style="{DynamicResource FocusVisual}">
                 <ScrollViewer.Resources>
                     <ControlTemplate x:Key="ModernScrollViewer" TargetType="{x:Type ScrollViewer}">
                         <Grid x:Name="Grid" Background="{TemplateBinding Background}">
@@ -573,21 +573,33 @@
                 </StackPanel>
             </ScrollViewer>
             <!--Left Stack-->
-            <StackPanel Margin="10,0,0,0" Background="#FFFFB900" MinWidth="300" MinHeight="50" HorizontalAlignment="Left" Width="551">
+            <StackPanel Margin="10,0,0,0" Background="#FFFFB900" MinWidth="300" MinHeight="50" HorizontalAlignment="Left" Width="487">
                 <DockPanel LastChildFill="False" Background="#FFFFCD46">
                     <Label Content="Brightness" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="110" Foreground="White"/>
                     <TextBox x:Name="brightnessValueText" Text="value" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
-                    <Button DockPanel.Dock="Right" Width="124" Content="ADD" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddBrightness" Foreground="White"/>
+                    <Button DockPanel.Dock="Right" Width="30"  FontSize="16" BorderThickness="0" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddBrightness" Foreground="White">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Images/addButton.png" Stretch="Uniform"/>
+                        </Button.Background>
+                    </Button>
                 </DockPanel>
                 <DockPanel LastChildFill="False">
                     <Label Content="Contrast" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="110" Foreground="White"/>
                     <TextBox x:Name="contrastValueText" Text="value" FontSize="14" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
-                    <Button DockPanel.Dock="Right" Content="ADD" FontSize="16" Width="124" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddContrast" Foreground="White"/>
+                    <Button DockPanel.Dock="Right" FontSize="16"  Width="30" BorderThickness="0" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddContrast" Foreground="White">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Images/addButton.png"/>
+                        </Button.Background>
+                    </Button>
                 </DockPanel>
                 <DockPanel LastChildFill="False" Background="#FFFFCD46">
                     <Label Content="Desturation" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="110" Foreground="White"/>
                     <TextBox x:Name="desaturationValueText" Text="value" FontSize="14" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
-                    <Button Content="ADD" Width="124" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddDesaturation" Foreground="White"/>
+                    <Button  Width="30" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddDesaturation" Foreground="White">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Images/addButton.png"/>
+                        </Button.Background>
+                    </Button>
                 </DockPanel>
                 <DockPanel LastChildFill="False">
                     <Label Content="Crop" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="110" Foreground="White"/>
@@ -595,13 +607,21 @@
                     <TextBox x:Name="cropYValue"  Text="y" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                     <TextBox x:Name="cropWidthValue"  Text="width" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                     <TextBox x:Name="cropHeightValue"  Text="height" FontSize="14" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
-                    <Button Content="ADD" Width="124" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddCrop" Foreground="White"/>
+                    <Button   Width="30" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Margin="10,10,10,10" Padding="5,0,5,0" Click="AddCrop" Foreground="White">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Images/addButton.png"/>
+                        </Button.Background>
+                    </Button>
                 </DockPanel>
                 <DockPanel LastChildFill="False" Background="#FFFFCD46">
                     <Label Content="Resize" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="110" Foreground="White"/>
                     <TextBox x:Name="resizeWidth" Text="width" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                     <TextBox x:Name="resizeHeight" Text="height" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
-                    <Button Content="ADD" Width="124" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Foreground="White" Click="AddResize"/>
+                    <Button  Width="30" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Margin="10,10,10,10" Padding="5,0,5,0" Foreground="White" Click="AddResize">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Images/addButton.png"/>
+                        </Button.Background>
+                    </Button>
                 </DockPanel>
                 <DockPanel LastChildFill="False">
                     <Label Content="Blur" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="110" Foreground="White"/>
@@ -611,14 +631,22 @@
                         <ListBoxItem Content="Large" HorizontalContentAlignment="Center" Margin="0" Padding="4" Width="110" HorizontalAlignment="Stretch" BorderThickness="0" BorderBrush="{x:Null}"/>
                     </ComboBox>
                     <TextBox x:Name="blurValue" Text="blur" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
-                    <Button Content="ADD" Width="124" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Foreground="White" Click="AddBlur"/>
+                    <Button  Width="30" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Margin="10,10,10,10" Padding="5,0,5,0" Foreground="White" Click="AddBlur">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Images/addButton.png"/>
+                        </Button.Background>
+                    </Button>
                 </DockPanel>
                 <DockPanel LastChildFill="False" Background="#FFFFCD46">
                     <Label Content="Text Overlay" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="110" Foreground="White"/>
                     <TextBox x:Name="textOverlayText" Text="Text To Be Displayed" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="240" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
-                    <Button Content="ADD" Width="124" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Background="#FFFFA02F" Margin="10,10,10,10" Padding="5,0,5,0" Foreground="White" Click="AddTextOverlay"/>                    
+                    <Button Width="30" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Margin="10,10,10,10" Padding="5,0,5,0" Foreground="White" Click="AddTextOverlay">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Images/addButton.png"/>
+                        </Button.Background>
+                    </Button>
                 </DockPanel>
-                <DockPanel LastChildFill="False" Background="#FFFFCD46" >                    
+                <DockPanel LastChildFill="False" Background="#FFFFCD46" >
                     <TextBox x:Name="xOffset" Text="x" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                     <TextBox x:Name="yOffset" Text="y" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                     <TextBox x:Name="fontSize" Text="size" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
@@ -632,14 +660,14 @@
             <Rectangle Fill="#66FFFFFF" Width="80" Height="30" StrokeThickness="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" MouseLeftButtonUp="dialogRectangleOk_LBU"/>
             <Label Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Margin="0,102,0,0" IsHitTestVisible="False" Foreground="White"/>
         </Grid>
-        <Rectangle x:Name="generateImagesButton" Fill="#FFFFA02F" StrokeThickness="5" Margin="10,0,0,10" Stroke="#FFFFCD46" MouseLeftButtonUp="generateImagesButton_OnLBU" Height="49" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="551"/>
-        <Label Content="Process Images" IsHitTestVisible="False" Margin="10,0,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="White" HorizontalAlignment="Left" Width="551" Height="49" VerticalAlignment="Bottom"/>
-        <Rectangle x:Name="removeStackOperator" Margin="0,0,10,10" HorizontalAlignment="Right" Width="49" Stroke="#FFFFB900" StrokeThickness="3" Height="49" VerticalAlignment="Bottom" MouseLeftButtonUp="StackOperationButtons_OnClick" RadiusY="23" RadiusX="23">
+        <Rectangle x:Name="generateImagesButton" Fill="#FFFFA02F" StrokeThickness="5" Margin="10,0,0,10" Stroke="#FFFFCD46" MouseLeftButtonUp="generateImagesButton_OnLBU" Height="49" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="486"/>
+        <Label Content="Process Images" IsHitTestVisible="False" Margin="10,0,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="White" HorizontalAlignment="Left" Width="486" Height="49" VerticalAlignment="Bottom"/>
+        <Rectangle x:Name="removeStackOperator" Margin="0,0,10,10" HorizontalAlignment="Right" Width="49" Stroke="#FFFFB900" StrokeThickness="3" Height="49" VerticalAlignment="Bottom" MouseLeftButtonUp="StackOperationButtons_OnClick">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="Images/MINbTN.png"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle x:Name="moveUpStackOperator" Margin="0,0,80,10" HorizontalAlignment="Right" Width="49" Stroke="#FFFFB900" StrokeThickness="3" Height="49" VerticalAlignment="Bottom" MouseLeftButtonUp="StackOperationButtons_OnClick" RadiusY="23" RadiusX="23">
+        <Rectangle x:Name="moveUpStackOperator" Margin="0,0,80,10" HorizontalAlignment="Right" Width="49" Stroke="#FFFFB900" StrokeThickness="3" Height="49" VerticalAlignment="Bottom" MouseLeftButtonUp="StackOperationButtons_OnClick">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="Images/arraowUPUse.png"/>
             </Rectangle.Fill>

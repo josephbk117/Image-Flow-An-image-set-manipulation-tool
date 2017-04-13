@@ -141,5 +141,8 @@
   <ItemGroup>
     <Resource Include="Images\arraowUPUse.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\addButton.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
