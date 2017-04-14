@@ -75,7 +75,7 @@ namespace ImageManipulation
             int gW = (int)(text.Length * fontSize);
             gW = gW == 0 ? 10 : gW;
             LinearGradientBrush LGBrush = new LinearGradientBrush(new Rectangle(0, 0, gW, (int)fontSize), colour1, colour2, LinearGradientMode.Vertical);
-            gr.DrawString(text, font, LGBrush, xPosition, yPosition);
+            gr.DrawString(text, font, LGBrush, xPosition, yPosition);            
 
             return (Bitmap)bmp.Clone();
 

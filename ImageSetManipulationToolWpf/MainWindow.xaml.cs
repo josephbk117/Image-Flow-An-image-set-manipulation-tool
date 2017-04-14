@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 using ImageManipulation;
+using System.Drawing.Text;
 
 namespace ImageSetManipulationToolWpf
 {
@@ -28,6 +29,18 @@ namespace ImageSetManipulationToolWpf
         {
             InitializeComponent();
             manipulations = new List<IMageManipulation>();
+            SetUpFonts();
+        }
+
+        private void SetUpFonts()
+        {
+
+            System.Drawing.FontFamily[] fontFams = new InstalledFontCollection().Families;
+            for(int i=0;i<fontFams.Length;i++)
+            {
+                fontFamilyComboBox.Items.Add(fontFams[i].Name);
+            }
+            
         }
 
         private void openFolderButton_OnLBU(object sender, MouseButtonEventArgs e)
@@ -247,7 +260,7 @@ namespace ImageSetManipulationToolWpf
         {
             try
             {
-                manipulations.Add(new ImageTextOverlay(textOverlayText.Text, "Arial", "normal", float.Parse(fontSize.Text), System.Drawing.Color.Black,
+                manipulations.Add(new ImageTextOverlay(textOverlayText.Text, fontFamilyComboBox.SelectedItem.ToString(), "normal", float.Parse(fontSize.Text), System.Drawing.Color.Black,
                     System.Drawing.Color.Blue, int.Parse(xOffset.Text), int.Parse(yOffset.Text)));
             }
             catch(FormatException)
@@ -256,6 +269,29 @@ namespace ImageSetManipulationToolWpf
                 return;
             }
             AddToOperationStack("Text Overlay : " + textOverlayText.Text + " at " + xOffset.Text + ", "+yOffset.Text);
+        }
+
+        private void ImageOverlayButon_OnClick(object sender, MouseButtonEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if(ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                overlayImageTextBox.Text = ofd.FileName;
+            }
+        }
+
+        private void AddImageOverlay(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                manipulations.Add(new ImagePictureOverlay(new Bitmap(overlayImageTextBox.Text), 20, 20, 200, 200));
+            }
+            catch (FormatException)
+            {
+                DialogShow("Wrong Input", "Check your co-ordinate values");
+                return;
+            }
+            AddToOperationStack("Image Overlay : " + overlayImageTextBox.Text + " at " + xOffset.Text + ", " + yOffset.Text);
         }
     }
 }
