@@ -284,14 +284,16 @@ namespace ImageSetManipulationToolWpf
         {
             try
             {
-                manipulations.Add(new ImagePictureOverlay(new Bitmap(overlayImageTextBox.Text), 20, 20, 200, 200));
+                manipulations.Add(new ImagePictureOverlay(new Bitmap(overlayImageTextBox.Text), int.Parse(xImageOffset.Text), 
+                    int.Parse(yImageOffset.Text), int.Parse(imageWidth.Text), int.Parse(imageHeight.Text)));
             }
             catch (FormatException)
             {
                 DialogShow("Wrong Input", "Check your co-ordinate values");
                 return;
             }
-            AddToOperationStack("Image Overlay : " + overlayImageTextBox.Text + " at " + xOffset.Text + ", " + yOffset.Text);
+            AddToOperationStack("Image Overlay : " + overlayImageTextBox.Text + " at " + xImageOffset.Text + 
+                ", " + yImageOffset.Text + ", "+imageWidth.Text + ", " + imageHeight.Text);
         }
     }
 }
