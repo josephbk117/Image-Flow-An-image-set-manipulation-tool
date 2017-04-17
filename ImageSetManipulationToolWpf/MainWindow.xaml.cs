@@ -25,11 +25,15 @@ namespace ImageSetManipulationToolWpf
     {
         string[] files;
         List<IMageManipulation> manipulations;
+
+        System.Drawing.Color textColourFromChoice;
+
         public MainWindow()
         {
             InitializeComponent();
             manipulations = new List<IMageManipulation>();
             SetUpFonts();
+            textColourFromChoice = System.Drawing.Color.FromArgb(0, 0, 0, 0);
         }
 
         private void SetUpFonts()
@@ -260,8 +264,8 @@ namespace ImageSetManipulationToolWpf
         {
             try
             {
-                manipulations.Add(new ImageTextOverlay(textOverlayText.Text, fontFamilyComboBox.SelectedItem.ToString(), "normal", float.Parse(fontSize.Text), System.Drawing.Color.Black,
-                    System.Drawing.Color.Blue, int.Parse(xOffset.Text), int.Parse(yOffset.Text)));
+                manipulations.Add(new ImageTextOverlay(textOverlayText.Text, fontFamilyComboBox.SelectedItem.ToString(), "normal", float.Parse(fontSize.Text), textColourFromChoice,
+                    int.Parse(xOffset.Text), int.Parse(yOffset.Text)));
             }
             catch(FormatException)
             {
@@ -294,6 +298,25 @@ namespace ImageSetManipulationToolWpf
             }
             AddToOperationStack("Image Overlay : " + overlayImageTextBox.Text + " at " + xImageOffset.Text + 
                 ", " + yImageOffset.Text + ", "+imageWidth.Text + ", " + imageHeight.Text);
+        }
+
+        private void ColourSelection_OnClick(object sender, MouseButtonEventArgs e)
+        {
+            colourDialog.IsHitTestVisible = true;
+            colourDialog.Visibility = Visibility.Visible;
+        }
+
+        private void ColourValue_OnChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            colourDisplay.Fill = new SolidColorBrush(System.Windows.Media.Color.FromArgb((byte)transColour.Value, (byte)redColour.Value, (byte)greenColour.Value, (byte)blueColour.Value));
+        }
+
+        private void colourDialogOkBtn_OnClick(object sender, MouseButtonEventArgs e)
+        {
+            colourDialog.IsHitTestVisible = false;
+            colourDialog.Visibility = Visibility.Hidden;
+            textColour.Fill = colourDisplay.Fill;
+            textColourFromChoice = System.Drawing.Color.FromArgb((byte)transColour.Value,(byte)redColour.Value, (byte)greenColour.Value, (byte)blueColour.Value);
         }
     }
 }

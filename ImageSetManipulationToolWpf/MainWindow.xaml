@@ -298,8 +298,8 @@
         <Label Content="Open Folder" IsHitTestVisible="False" Foreground="White" Margin="0,48,10,0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="124" Height="33" VerticalAlignment="Top"/>
         <Grid Margin="0,86,0,64">
             <!--Right stack-->
-            <Label Content="Operation Set" Margin="513,0,10,0" FontSize="24" Foreground="White" Background="#FFFFA02F" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" VerticalAlignment="Top"/>
-            <ScrollViewer SnapsToDevicePixels="True" Margin="513,50,10,0" ScrollViewer.VerticalScrollBarVisibility="Auto" Template="{DynamicResource ModernScrollViewer}" Style="{DynamicResource FocusVisual}">
+            <Label Content="Operation Set" Margin="585,0,10,0" FontSize="24" Foreground="White" Background="#FFFFA02F" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" VerticalAlignment="Top"/>
+            <ScrollViewer SnapsToDevicePixels="True" Margin="585,50,10,0" ScrollViewer.VerticalScrollBarVisibility="Auto" Template="{DynamicResource ModernScrollViewer}" Style="{DynamicResource FocusVisual}">
                 <ScrollViewer.Resources>
                     <ControlTemplate x:Key="ModernScrollViewer" TargetType="{x:Type ScrollViewer}">
                         <Grid x:Name="Grid" Background="{TemplateBinding Background}">
@@ -573,8 +573,8 @@
                 </StackPanel>
             </ScrollViewer>
             <!--Left Stack-->
-            <ScrollViewer HorizontalAlignment="Left" Width="508" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <StackPanel Background="#FFFFB900" MinWidth="200" Margin="10,0,0,0" MinHeight="50" HorizontalAlignment="Left" Width="489">
+            <ScrollViewer HorizontalAlignment="Left" Width="580" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <StackPanel Background="#FFFFB900" MinWidth="200" MinHeight="50" HorizontalAlignment="Left" Width="580">
                     <DockPanel LastChildFill="False" Background="#FFFFCD46">
                         <Label Content="Brightness" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="125" Foreground="White"/>
                         <TextBox x:Name="brightnessValueText" Text="value" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
@@ -640,7 +640,7 @@
                     </DockPanel>
                     <DockPanel LastChildFill="False" Background="#FFFFCD46">
                         <Label Content="Text Overlay" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="125" Foreground="White"/>
-                        <TextBox x:Name="textOverlayText" Text="Text To Be Displayed" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="275" Height="30" Margin="10,10,0,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+                        <TextBox x:Name="textOverlayText" Text="Text To Be Displayed" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="324" Height="30" Margin="10,10,0,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <Button Width="30" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Margin="10,10,10,10" Padding="5,0,5,0" Foreground="White" Click="AddTextOverlay">
                             <Button.Background>
                                 <ImageBrush ImageSource="Images/addButton.png"/>
@@ -652,6 +652,7 @@
                         <TextBox x:Name="yOffset" Text="y" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <TextBox x:Name="fontSize" Text="size" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <ComboBox x:Name="fontFamilyComboBox" Width="254" Margin="10,10,5,10" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFFFA02F" FontSize="16" BorderThickness="0" Background="Aqua" Style="{DynamicResource ModernComboBox}"/>
+                        <Rectangle x:Name="textColour" Margin="55,0,0,0" Width="34" Height="34" RadiusY="15" RadiusX="15" Stroke="White" StrokeThickness="3" Fill="White" MouseLeftButtonUp="ColourSelection_OnClick"/>
                     </DockPanel>
                     <DockPanel LastChildFill="False">
                         <Label Content="Image Overlay" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="125" Foreground="White"/>
@@ -663,11 +664,11 @@
                             </Button.Background>
                         </Button>
                     </DockPanel>
-                    <DockPanel LastChildFill="False">                        
+                    <DockPanel LastChildFill="False">
                         <TextBox x:Name="xImageOffset" Text="x" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="155,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <TextBox x:Name="yImageOffset" Text="y" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <TextBox x:Name="imageWidth" Text="width" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
-                        <TextBox x:Name="imageHeight" Text="height" FontSize="14" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>                        
+                        <TextBox x:Name="imageHeight" Text="height" FontSize="14" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                     </DockPanel>
                 </StackPanel>
             </ScrollViewer>
@@ -678,6 +679,19 @@
             <Label x:Name="dialogMessageContent" Content="Details To User" FontSize="22" VerticalAlignment="Center" Margin="10,185,10,170" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="804" Height="54" Foreground="White"/>
             <Rectangle Fill="#66FFFFFF" Width="80" Height="30" StrokeThickness="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" MouseLeftButtonUp="dialogRectangleOk_LBU"/>
             <Label Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Margin="0,102,0,0" IsHitTestVisible="False" Foreground="White"/>
+        </Grid>
+        <Grid x:Name="colourDialog" Background="#59000000" Visibility="Visible" IsHitTestVisible="False">
+            <Rectangle Margin="0,0,00,0" Height="300" Fill="#7F000000"/>
+            <Label Content="Choose Colour" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-240,0,0" Foreground="White"/>
+            <Rectangle x:Name="colourDisplay" Width="200" Height="200" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,30,0,0" Stroke="White" StrokeThickness="5" IsHitTestVisible="False" RadiusY="97.5" RadiusX="97.5" Fill="#00000000"/>
+            <Grid Margin="334,210,10,212">
+                <Slider x:Name="redColour" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="Red" BorderBrush="#FF00FF46" IsHitTestVisible="True" Margin="10,-100,120,10" Maximum="255" SmallChange="1" ValueChanged="ColourValue_OnChange"/>
+                <Slider x:Name="greenColour" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="Lime" BorderBrush="#FF00FF46" IsHitTestVisible="True" Margin="10,-20,120,10" Maximum="255" SmallChange="1" ValueChanged="ColourValue_OnChange"/>
+                <Slider x:Name="blueColour" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="#FF0000FD" BorderBrush="#FF00FF46" IsHitTestVisible="True" Margin="10,60,120,10" Maximum="255" SmallChange="1" ValueChanged="ColourValue_OnChange"/>
+                <Slider x:Name="transColour" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="#FF646464" BorderBrush="#FF00FF46" IsHitTestVisible="True" Margin="10,140,120,10" Maximum="255" SmallChange="1" ValueChanged="ColourValue_OnChange"/>
+                <Label Content="OK" VerticalAlignment="Bottom"  FontSize="16" Margin="122,0,0,10" IsHitTestVisible="False" Foreground="White" HorizontalAlignment="Left" Width="31"/>
+            </Grid>
+            <Rectangle Width="100" Height="40" HorizontalAlignment="Center" Fill="#7FFFFFFF" Margin="0,460,0,212" MouseLeftButtonUp="colourDialogOkBtn_OnClick"/>
         </Grid>
         <Rectangle x:Name="generateImagesButton" Fill="#FFFFA02F" StrokeThickness="5" Margin="10,0,0,10" Stroke="#FFFFCD46" MouseLeftButtonUp="generateImagesButton_OnLBU" Height="49" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="489"/>
         <Label Content="Process Images" IsHitTestVisible="False" Margin="10,0,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Foreground="White" HorizontalAlignment="Left" Width="489" Height="49" VerticalAlignment="Bottom"/>

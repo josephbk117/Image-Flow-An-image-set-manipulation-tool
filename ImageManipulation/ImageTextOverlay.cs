@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+﻿using System.Drawing;
 
 namespace ImageManipulation
 {
@@ -8,32 +6,30 @@ namespace ImageManipulation
     {
         Bitmap bmp;
         string text, fontName, fontStyle;
-        Color colour1, colour2;
+        Color colour;
         int xPosition, yPosition;
         float fontSize;
 
         public ImageTextOverlay(Bitmap bitmap, string text, string fontName, string fontStyle, float fontSize,
-                Color colour1, Color colour2, int xPosition, int yPosition)
+                Color colour, int xPosition, int yPosition)
         {
             bmp = (Bitmap)bitmap.Clone();
             this.text = text;
             this.fontName = fontName;
             this.fontStyle = fontStyle;
-            this.colour1 = colour1;
-            this.colour2 = colour2;
+            this.colour = colour;
             this.fontSize = fontSize;
             this.xPosition = xPosition;
             this.yPosition = yPosition;
         }
 
         public ImageTextOverlay(string text, string fontName, string fontStyle, float fontSize,
-                Color colour1, Color colour2, int xPosition, int yPosition)
+                Color colour, int xPosition, int yPosition)
         {
             this.text = text;
             this.fontName = fontName;
             this.fontStyle = fontStyle;
-            this.colour1 = colour1;
-            this.colour2 = colour2;
+            this.colour = colour;
             this.fontSize = fontSize;
             this.xPosition = xPosition;
             this.yPosition = yPosition;
@@ -67,15 +63,14 @@ namespace ImageManipulation
                 }
                 font = new Font(fontName, fontSize, fStyle);
             }
-            if (colour1 == null)
-                colour1 = Color.Black;
-            if (colour2 == null)
-                colour2 = Color.White;
+            if (colour == null)
+                colour = Color.Black;
+
 
             int gW = (int)(text.Length * fontSize);
             gW = gW == 0 ? 10 : gW;
-            LinearGradientBrush LGBrush = new LinearGradientBrush(new Rectangle(0, 0, gW, (int)fontSize), colour1, colour2, LinearGradientMode.Vertical);
-            gr.DrawString(text, font, LGBrush, xPosition, yPosition);            
+            SolidBrush LGBrush = new SolidBrush(colour);
+            gr.DrawString(text, font, LGBrush, xPosition, yPosition);
 
             return (Bitmap)bmp.Clone();
 
