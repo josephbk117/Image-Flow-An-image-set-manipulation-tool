@@ -289,7 +289,7 @@ namespace ImageSetManipulationToolWpf
             try
             {
                 manipulations.Add(new ImagePictureOverlay(new Bitmap(overlayImageTextBox.Text), int.Parse(xImageOffset.Text), 
-                    int.Parse(yImageOffset.Text), int.Parse(imageWidth.Text), int.Parse(imageHeight.Text)));
+                    int.Parse(yImageOffset.Text), int.Parse(imageWidth.Text), int.Parse(imageHeight.Text),int.Parse(imageOpacity.Text)));
             }
             catch (FormatException)
             {
@@ -297,7 +297,7 @@ namespace ImageSetManipulationToolWpf
                 return;
             }
             AddToOperationStack("Image Overlay : " + overlayImageTextBox.Text + " at " + xImageOffset.Text + 
-                ", " + yImageOffset.Text + ", "+imageWidth.Text + ", " + imageHeight.Text);
+                ", " + yImageOffset.Text + ", "+imageWidth.Text + ", " + imageHeight.Text + ", " + Math.Max(0, Math.Min(100, int.Parse(imageOpacity.Text))) + "%");
         }
 
         private void ColourSelection_OnClick(object sender, MouseButtonEventArgs e)

@@ -669,6 +669,7 @@
                         <TextBox x:Name="yImageOffset" Text="y" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <TextBox x:Name="imageWidth" Text="width" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <TextBox x:Name="imageHeight" Text="height" FontSize="14" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+                        <TextBox x:Name="imageOpacity" Text="opacity" FontSize="14" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                     </DockPanel>
                 </StackPanel>
             </ScrollViewer>
