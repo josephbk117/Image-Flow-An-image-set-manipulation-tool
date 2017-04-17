@@ -14,9 +14,17 @@ namespace ImageManipulation
 
     public static class ImageFormatConverter
     {
-        public static Bitmap ConvertTo32Bpp(Bitmap bmp)
+        public static Bitmap ConvertTo32Bpp(Bitmap bmp,ImageFormat format)
         {
-            Bitmap bm = new Bitmap(bmp.Width, bmp.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Bitmap bm;
+            switch (format)
+            {
+                case ImageFormat.WithAlpha:
+                    bm = new Bitmap(bmp.Width, bmp.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);break;
+                case ImageFormat.NoAlpha:
+                    bm = new Bitmap(bmp.Width, bmp.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb); break;
+                default: bm = new Bitmap(bmp.Width, bmp.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb); break;
+            }            
             bm.SetResolution(bmp.HorizontalResolution, bmp.VerticalResolution);           
             Graphics g = Graphics.FromImage(bm);
             g.DrawImage(bmp, 0, 0);

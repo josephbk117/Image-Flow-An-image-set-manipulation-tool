@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Drawing.Imaging;
 using System.Threading.Tasks;
 
 namespace ImageManipulation
@@ -31,22 +29,32 @@ namespace ImageManipulation
         public Bitmap PerformManipuation()
         {
             Graphics gr = Graphics.FromImage(bmp);
-            imageToOverlay = ImageFormatConverter.ConvertTo32Bpp(imageToOverlay);
+            imageToOverlay = ImageFormatConverter.ConvertTo32Bpp(imageToOverlay, ImageFormat.WithAlpha);
 
-            for (int i = 0; i < imageToOverlay.Width; i++)
+            unsafe
             {
-                for (int j = 0; j < imageToOverlay.Height; j++)
+                BitmapData bmpData = imageToOverlay.LockBits(new Rectangle(0, 0, imageToOverlay.Width, imageToOverlay.Height), ImageLockMode.ReadWrite, imageToOverlay.PixelFormat);
+
+                int bytesPerPixel = 4;
+                int heightInPixels = imageToOverlay.Height;
+                int widthInBytes = imageToOverlay.Width * bytesPerPixel;
+                byte* firstPixelPtr = (byte*)bmpData.Scan0;
+
+                Parallel.For(0, heightInPixels, y =>
                 {
-                    Color nCol = imageToOverlay.GetPixel(i, j);
-                    imageToOverlay.SetPixel(i, j, Color.FromArgb(opacity, nCol.R, nCol.G, nCol.B));
-                }
+                    byte* currentLine = firstPixelPtr + (y * bmpData.Stride);
+
+                    for (int x = 0; x < widthInBytes; x = x + 4)
+                    {
+                        currentLine[x + 3] = (byte)opacity;
+                    }
+                });
+                imageToOverlay.UnlockBits(bmpData);
             }
 
             gr.DrawImage(imageToOverlay, imageRect);
-
             return (Bitmap)bmp.Clone();
         }
-
         public void SetBitmap(Bitmap bitmap)
         {
             bmp = (Bitmap)bitmap.Clone();

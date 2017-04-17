@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ImageManipulation
@@ -49,58 +45,7 @@ namespace ImageManipulation
         }
 
         public Bitmap PerformManipuation()
-        {
-           /* Bitmap newBmp;
-            unsafe
-            {
-                newBmp = bmp.Clone(new Rectangle(0, 0, bmp.Width, bmp.Height), bmp.PixelFormat);
-
-                BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),
-                    ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-                BitmapData newBmpData = newBmp.LockBits(new Rectangle(0, 0, newBmp.Width, newBmp.Height),
-                    ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-                int bytesPerPixel = Bitmap.GetPixelFormatSize(bmp.PixelFormat) / 8;
-                int heightInPixels = bmp.Height;
-                int widthInBytes = bmp.Width * bytesPerPixel;
-
-                byte* firstPixelPtr = (byte*)bmpData.Scan0;
-                byte* firstNewPixelPtr = (byte*)newBmpData.Scan0;
-
-                Parallel.For(0, heightInPixels, y =>
-                {
-                    byte* currentLine = firstPixelPtr + (y * bmpData.Stride);
-                    byte* newCurrentLine = firstNewPixelPtr + (y * newBmpData.Stride);
-                    for (int x = 0; x < widthInBytes; x = x + bytesPerPixel)
-                    {
-                        int avgBl = 0;
-                        int avgGl = 0;
-                        int avgRl = 0;
-                        for (int line = y - kernelSize / 2; line <= y + kernelSize / 2; line++)
-                        {
-                            if (line > 0 && line < heightInPixels)
-                            {
-                                byte* linePtr = firstPixelPtr + (line * bmpData.Stride);
-
-                                if (x - 6 > 0 && x + 9 < widthInBytes)
-                                {
-                                    for (int val = x - (2 * 3); val < x + (3 * 3); val += 3)
-                                    {
-                                        avgBl += linePtr[val];
-                                        avgGl += linePtr[val + 1];
-                                        avgRl += linePtr[val + 2];
-                                    }
-                                }
-                            }
-                        }
-                        newCurrentLine[x] = (byte)(avgBl / (kernelSize * kernelSize));
-                        newCurrentLine[x + 1] = (byte)(avgGl / (kernelSize * kernelSize));
-                        newCurrentLine[x + 2] = (byte)(avgRl / (kernelSize * kernelSize));
-                    }
-                });
-                bmp.UnlockBits(bmpData);
-                newBmp.UnlockBits(newBmpData);
-            }*/
+        {           
             Bitmap newBmp = bmp.Clone(new Rectangle(0, 0, bmp.Width, bmp.Height), bmp.PixelFormat);
 
             for (int i=0;i<blurAmount;i++)
