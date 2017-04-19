@@ -28,6 +28,8 @@ namespace ImageSetManipulationToolWpf
 
         System.Drawing.Color textColourFromChoice;
 
+        private static int selectedStackOperation = -1;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -228,7 +230,6 @@ namespace ImageSetManipulationToolWpf
             AddToOperationStack(((ImagePictureOverlay)(manipulations[manipulations.Count - 1])).ToString(overlayImageTextBox.Text));
         }
 
-        static int addedIndex = 1;
         private void AddToOperationStack(string content)
         {
             System.Windows.Controls.Label lbl = new System.Windows.Controls.Label()
@@ -238,19 +239,43 @@ namespace ImageSetManipulationToolWpf
                 Foreground = System.Windows.Media.Brushes.White,
                 FontSize = 16
             };
-            if (addedIndex % 2 != 0)
+            if (operationStack.Children.Count % 2 != 0)
                 lbl.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 205, 70));
+            lbl.MouseLeftButtonDown += OperationStack_ItemSelect;
 
             operationStack.Children.Add(lbl);
-            addedIndex++;
+        }
+
+        private void OperationStack_ItemSelect(object sender, MouseButtonEventArgs e)
+        {
+            movUp = 0;
+            selectedStackOperation = operationStack.Children.IndexOf((UIElement)sender);
+            //Deselect others
+            for (int i = 0; i < operationStack.Children.Count; i++)
+            {
+                if (i != selectedStackOperation)
+                {
+                    ((System.Windows.Controls.Label)operationStack.Children[i]).Foreground = System.Windows.Media.Brushes.White;
+                }
+            }
+            ((System.Windows.Controls.Label)sender).Foreground = System.Windows.Media.Brushes.Gray;
         }
 
         private void RemoveFromOperationStack()
         {
             if (operationStack.Children.Count >= 1)
             {
-                operationStack.Children.RemoveAt(operationStack.Children.Count - 1);
-                manipulations.RemoveAt(manipulations.Count - 1);
+                if (selectedStackOperation == -1)
+                {
+                    operationStack.Children.RemoveAt(operationStack.Children.Count - 1);
+                    manipulations.RemoveAt(manipulations.Count - 1);
+                }
+                else
+                {
+                    operationStack.Children.RemoveAt(selectedStackOperation);
+                    manipulations.RemoveAt(selectedStackOperation);
+                }
+                selectedStackOperation = -1;
             }
         }
 
@@ -271,7 +296,7 @@ namespace ImageSetManipulationToolWpf
         {
             ((System.Windows.Controls.TextBox)(sender)).Text = "";
         }
-        int movUp = 1;
+        int movUp = 0;
         private void StackOperationButtons_OnClick(object sender, MouseButtonEventArgs e)
         {
             if (sender.Equals(removeStackOperator))
@@ -282,7 +307,7 @@ namespace ImageSetManipulationToolWpf
             {
                 if (operationStack.Children.Count >= 2)
                 {
-                    int index = operationStack.Children.Count - movUp;
+                    int index = selectedStackOperation - movUp;
                     if (index > 0)
                     {
                         ReplaceStackObjects(index - 1, index);
