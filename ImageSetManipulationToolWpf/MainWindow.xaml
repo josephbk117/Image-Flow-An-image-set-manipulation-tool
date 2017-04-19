@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ImageSetManipulationToolWpf"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="ImageSetManipulationToolWpf.MainWindow"
         mc:Ignorable="d"
-        Title="Image Set Processing Tool" Height="755" Width="947" MinWidth="530" MinHeight="440">
+        Title="Image Set Processing Tool" Height="740" Width="940" MinWidth="530" MinHeight="440">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -299,7 +299,7 @@
         <Grid Margin="0,86,0,64">
             <!--Right stack-->
             <Label Content="Operation Set" Margin="585,0,0,0" FontSize="24" Foreground="White" Background="#FFFFA02F" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" VerticalAlignment="Top"/>
-            <ScrollViewer SnapsToDevicePixels="True" Margin="585,50,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" Template="{DynamicResource ModernScrollViewer}" Style="{DynamicResource FocusVisual}">
+            <ScrollViewer SnapsToDevicePixels="True" Margin="585,50,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" Template="{DynamicResource ModernScrollViewer}" Style="{DynamicResource FocusVisual}" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                 <ScrollViewer.Resources>
                     <ControlTemplate x:Key="ModernScrollViewer" TargetType="{x:Type ScrollViewer}">
                         <Grid x:Name="Grid" Background="{TemplateBinding Background}">
@@ -574,7 +574,7 @@
             </ScrollViewer>
             <!--Left Stack-->
             <ScrollViewer HorizontalAlignment="Left" Width="580" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <StackPanel Background="#FFFFB900" MinWidth="200" MinHeight="50" HorizontalAlignment="Left" Width="580">
+                <StackPanel x:Name="operationControls" Background="#FFFFB900" MinWidth="200" MinHeight="50" HorizontalAlignment="Left" Width="580">
                     <DockPanel LastChildFill="False" Background="#FFFFCD46">
                         <Label Content="Brightness" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="125" Foreground="White"/>
                         <TextBox x:Name="brightnessValueText" Text="value" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>

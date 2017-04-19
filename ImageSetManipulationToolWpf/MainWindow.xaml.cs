@@ -29,13 +29,29 @@ namespace ImageSetManipulationToolWpf
         System.Drawing.Color textColourFromChoice;
 
         private static int selectedStackOperation = -1;
-
+        List<string> initialText;
+        List<System.Windows.Controls.TextBox> textBoxes;
         public MainWindow()
         {
             InitializeComponent();
             manipulations = new List<IMageManipulation>();
             SetUpFonts();
             textColourFromChoice = System.Drawing.Color.FromArgb(0, 0, 0, 0);
+            textBoxes = new List<System.Windows.Controls.TextBox>();
+            initialText = new List<string>();
+            for(int i=0;i<operationControls.Children.Count;i++)
+            {               
+                DockPanel dPan = operationControls.Children[i] as DockPanel;
+                for(int j=0;j<dPan.Children.Count;j++)
+                {                    
+                    if(dPan.Children[j] is System.Windows.Controls.TextBox)
+                    {
+                        textBoxes.Add(dPan.Children[j] as System.Windows.Controls.TextBox);
+                        initialText.Add(((System.Windows.Controls.TextBox)(dPan.Children[j])).Text);
+                        ((System.Windows.Controls.TextBox)(dPan.Children[j])).LostFocus += TextBox_OnFocusLost;
+                    }
+                }
+            }            
         }
 
         private void SetUpFonts()
@@ -363,6 +379,15 @@ namespace ImageSetManipulationToolWpf
             colourDialog.Visibility = Visibility.Hidden;
             textColour.Fill = colourDisplay.Fill;
             textColourFromChoice = System.Drawing.Color.FromArgb((byte)transColour.Value, (byte)redColour.Value, (byte)greenColour.Value, (byte)blueColour.Value);
+        }
+
+        private void TextBox_OnFocusLost(object sender, RoutedEventArgs e)
+        {
+            if ((sender as System.Windows.Controls.TextBox).Text == "")
+            {
+                int index = textBoxes.IndexOf(sender as System.Windows.Controls.TextBox);
+                (sender as System.Windows.Controls.TextBox).Text = initialText[index];
+            }
         }
     }
 }
