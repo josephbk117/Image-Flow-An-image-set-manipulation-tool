@@ -59,5 +59,9 @@ namespace ImageManipulation
         {
             bmp = (Bitmap)bitmap.Clone();
         }
+        public string ToString(string imageName)
+        {
+            return "Picture Overlay : " + imageName + ", x = " + imageRect.X + ", y = " + imageRect.Y + ", width = " + imageRect.Width + ", height = " + imageRect.Height;
+        }
     }
 }

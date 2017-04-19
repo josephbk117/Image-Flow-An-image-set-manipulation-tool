@@ -15,7 +15,7 @@ namespace ImageManipulation
             this.brightness = brightness;
         }
         public ImageBrightness(int brightness)
-        {            
+        {
             this.brightness = brightness;
         }
         public void SetBitmap(Bitmap bitmap)
@@ -65,6 +65,10 @@ namespace ImageManipulation
             }
 
             return (Bitmap)bmp.Clone();
+        }
+        public override string ToString()
+        {
+            return "Brightness : " + ((brightness > 0) ? "+" + brightness : brightness.ToString());
         }
     }
 }

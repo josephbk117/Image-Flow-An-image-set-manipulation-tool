@@ -80,5 +80,9 @@ namespace ImageManipulation
         {
             bmp = (Bitmap)bitmap.Clone();
         }
+        public override string ToString()
+        {
+            return "Text Overlay : " + "text = " + text + ", font = " + fontName + ", font size = " + fontSize + ", colour = " + colour.ToString() + ", x = " + xPosition + ", y = " + yPosition;
+        }
     }
 }

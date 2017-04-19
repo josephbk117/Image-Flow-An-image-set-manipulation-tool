@@ -40,11 +40,11 @@ namespace ImageSetManipulationToolWpf
         {
 
             System.Drawing.FontFamily[] fontFams = new InstalledFontCollection().Families;
-            for(int i=0;i<fontFams.Length;i++)
+            for (int i = 0; i < fontFams.Length; i++)
             {
                 fontFamilyComboBox.Items.Add(fontFams[i].Name);
             }
-            
+
         }
 
         private void openFolderButton_OnLBU(object sender, MouseButtonEventArgs e)
@@ -119,7 +119,7 @@ namespace ImageSetManipulationToolWpf
                 DialogShow("Wrong Input", "Input correct brightness value, Range(-255 to 255)");
                 return;
             }
-            AddToOperationStack("Brightness : " + brightnessValueText.Text);
+            AddToOperationStack(manipulations[manipulations.Count - 1].ToString());
         }
 
         private void AddContrast(object sender, RoutedEventArgs e)
@@ -134,7 +134,7 @@ namespace ImageSetManipulationToolWpf
                 return;
             }
 
-            AddToOperationStack("Contrast : " + contrastValueText.Text);
+            AddToOperationStack(manipulations[manipulations.Count - 1].ToString());
         }
 
         private void AddDesaturation(object sender, RoutedEventArgs e)
@@ -148,7 +148,7 @@ namespace ImageSetManipulationToolWpf
                 DialogShow("Wrong Input", "Input desaturation percentage , Range(0 - 100)");
                 return;
             }
-            AddToOperationStack("Desaturation : " + desaturationValueText.Text + "%");
+            AddToOperationStack(manipulations[manipulations.Count - 1].ToString());
         }
 
         private void AddCrop(object sender, RoutedEventArgs e)
@@ -162,7 +162,7 @@ namespace ImageSetManipulationToolWpf
                 DialogShow("Wrong Input", "Check your crop parameters");
                 return;
             }
-            AddToOperationStack("Crop : " + cropXValue.Text + "," + cropYValue.Text + "," + cropWidthValue.Text + "," + cropHeightValue.Text);
+            AddToOperationStack(manipulations[manipulations.Count - 1].ToString());
         }
         private void AddResize(object sender, RoutedEventArgs e)
         {
@@ -175,49 +175,22 @@ namespace ImageSetManipulationToolWpf
                 DialogShow("Wrong Input", "Check your resize parameters");
                 return;
             }
-            AddToOperationStack("Resize : " + resizeWidth.Text + "," + resizeHeight.Text);
+            AddToOperationStack(manipulations[manipulations.Count - 1].ToString());
         }
-        static int addedIndex = 1;
-        private void AddToOperationStack(string content)
+        private void AddTextOverlay(object sender, RoutedEventArgs e)
         {
-            System.Windows.Controls.Label lbl = new System.Windows.Controls.Label()
+            try
             {
-                Content = content,
-                HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
-                Foreground = System.Windows.Media.Brushes.White,
-                FontSize = 16
-            };
-            if (addedIndex % 2 != 0)
-                lbl.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 205, 70));
-
-            operationStack.Children.Add(lbl);
-            addedIndex++;
+                manipulations.Add(new ImageTextOverlay(textOverlayText.Text, fontFamilyComboBox.SelectedItem.ToString(), "normal", float.Parse(fontSize.Text), textColourFromChoice,
+                    int.Parse(xOffset.Text), int.Parse(yOffset.Text)));
+            }
+            catch (FormatException)
+            {
+                DialogShow("Wrong Input", "Check your text attribute values");
+                return;
+            }
+            AddToOperationStack(manipulations[manipulations.Count - 1].ToString());
         }
-
-        private void RemoveFromOperationStack()
-        {
-            if (operationStack.Children.Count >= 1)
-                operationStack.Children.RemoveAt(operationStack.Children.Count - 1);
-        }
-
-        private void dialogRectangleOk_LBU(object sender, MouseButtonEventArgs e)
-        {
-            dialogGrid.Visibility = Visibility.Hidden;
-        }
-
-        private void DialogShow(string message, string content)
-        {
-            dialogGrid.IsHitTestVisible = true;
-            dialogGrid.Visibility = Visibility.Visible;
-            dialogMessageTitle.Content = message;
-            dialogMessageContent.Content = content;
-        }
-
-        private void TextboxClearOnLMU(object sender, MouseButtonEventArgs e)
-        {
-            ((System.Windows.Controls.TextBox)(sender)).Text = "";
-        }
-
         private void AddBlur(object sender, RoutedEventArgs e)
         {
             try
@@ -238,9 +211,67 @@ namespace ImageSetManipulationToolWpf
                 DialogShow("Wrong Input", "Check your blur value");
                 return;
             }
-            AddToOperationStack("Blur : " + "Small ," + blurValue.Text);
+            AddToOperationStack(manipulations[manipulations.Count - 1].ToString());
+        }
+        private void AddImageOverlay(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                manipulations.Add(new ImagePictureOverlay(new Bitmap(overlayImageTextBox.Text), int.Parse(xImageOffset.Text),
+                    int.Parse(yImageOffset.Text), int.Parse(imageWidth.Text), int.Parse(imageHeight.Text), int.Parse(imageOpacity.Text)));
+            }
+            catch (FormatException)
+            {
+                DialogShow("Wrong Input", "Check your co-ordinate values");
+                return;
+            }
+            AddToOperationStack(((ImagePictureOverlay)(manipulations[manipulations.Count - 1])).ToString(overlayImageTextBox.Text));
         }
 
+        static int addedIndex = 1;
+        private void AddToOperationStack(string content)
+        {
+            System.Windows.Controls.Label lbl = new System.Windows.Controls.Label()
+            {
+                Content = content,
+                HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
+                Foreground = System.Windows.Media.Brushes.White,
+                FontSize = 16
+            };
+            if (addedIndex % 2 != 0)
+                lbl.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 205, 70));
+
+            operationStack.Children.Add(lbl);
+            addedIndex++;
+        }
+
+        private void RemoveFromOperationStack()
+        {
+            if (operationStack.Children.Count >= 1)
+            {
+                operationStack.Children.RemoveAt(operationStack.Children.Count - 1);
+                manipulations.RemoveAt(manipulations.Count - 1);
+            }
+        }
+
+        private void dialogRectangleOk_LBU(object sender, MouseButtonEventArgs e)
+        {
+            dialogGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void DialogShow(string message, string content)
+        {
+            dialogGrid.IsHitTestVisible = true;
+            dialogGrid.Visibility = Visibility.Visible;
+            dialogMessageTitle.Content = message;
+            dialogMessageContent.Content = content;
+        }
+
+        private void TextboxClearOnLMU(object sender, MouseButtonEventArgs e)
+        {
+            ((System.Windows.Controls.TextBox)(sender)).Text = "";
+        }
+        int movUp = 1;
         private void StackOperationButtons_OnClick(object sender, MouseButtonEventArgs e)
         {
             if (sender.Equals(removeStackOperator))
@@ -250,54 +281,44 @@ namespace ImageSetManipulationToolWpf
             else if (sender.Equals(moveUpStackOperator))
             {
                 if (operationStack.Children.Count >= 2)
-                    ReplaceStackObjects((System.Windows.Controls.Label)operationStack.Children[operationStack.Children.Count - 1], (System.Windows.Controls.Label)operationStack.Children[operationStack.Children.Count - 2]);
+                {
+                    int index = operationStack.Children.Count - movUp;
+                    if (index > 0)
+                    {
+                        ReplaceStackObjects(index - 1, index);
+                        movUp++;
+                    }
+                }
             }
         }
-        private void ReplaceStackObjects(System.Windows.Controls.Label lbl1, System.Windows.Controls.Label lbl2)
+        private void ReplaceStackObjects(int index1, int index2)
         {
-            operationStack.Children.RemoveRange(operationStack.Children.Count - 2, 2);
-            operationStack.Children.Add(lbl1);
-            operationStack.Children.Add(lbl2);
-        }
+            System.Windows.Controls.Label lbl1 = (System.Windows.Controls.Label)operationStack.Children[index1];
+            System.Windows.Controls.Label lbl2 = (System.Windows.Controls.Label)operationStack.Children[index2];
 
-        private void AddTextOverlay(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                manipulations.Add(new ImageTextOverlay(textOverlayText.Text, fontFamilyComboBox.SelectedItem.ToString(), "normal", float.Parse(fontSize.Text), textColourFromChoice,
-                    int.Parse(xOffset.Text), int.Parse(yOffset.Text)));
-            }
-            catch(FormatException)
-            {
-                DialogShow("Wrong Input", "Check your text attribute values");
-                return;
-            }
-            AddToOperationStack("Text Overlay : " + textOverlayText.Text + " at " + xOffset.Text + ", "+yOffset.Text);
-        }
+            operationStack.Children.Remove(lbl1);
+            operationStack.Children.Remove(lbl2);
 
+            operationStack.Children.Insert(index1, lbl2);
+            operationStack.Children.Insert(index2, lbl1);
+
+            IMageManipulation op1 = manipulations[index1];
+            IMageManipulation op2 = manipulations[index2];
+
+            manipulations.Remove(op1);
+            manipulations.Remove(op2);
+
+            manipulations.Insert(index1, op2);
+            manipulations.Insert(index2, op1);
+
+        }
         private void ImageOverlayButon_OnClick(object sender, MouseButtonEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            if(ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 overlayImageTextBox.Text = ofd.FileName;
             }
-        }
-
-        private void AddImageOverlay(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                manipulations.Add(new ImagePictureOverlay(new Bitmap(overlayImageTextBox.Text), int.Parse(xImageOffset.Text), 
-                    int.Parse(yImageOffset.Text), int.Parse(imageWidth.Text), int.Parse(imageHeight.Text),int.Parse(imageOpacity.Text)));
-            }
-            catch (FormatException)
-            {
-                DialogShow("Wrong Input", "Check your co-ordinate values");
-                return;
-            }
-            AddToOperationStack("Image Overlay : " + overlayImageTextBox.Text + " at " + xImageOffset.Text + 
-                ", " + yImageOffset.Text + ", "+imageWidth.Text + ", " + imageHeight.Text + ", " + Math.Max(0, Math.Min(100, int.Parse(imageOpacity.Text))) + "%");
         }
 
         private void ColourSelection_OnClick(object sender, MouseButtonEventArgs e)
@@ -316,7 +337,7 @@ namespace ImageSetManipulationToolWpf
             colourDialog.IsHitTestVisible = false;
             colourDialog.Visibility = Visibility.Hidden;
             textColour.Fill = colourDisplay.Fill;
-            textColourFromChoice = System.Drawing.Color.FromArgb((byte)transColour.Value,(byte)redColour.Value, (byte)greenColour.Value, (byte)blueColour.Value);
+            textColourFromChoice = System.Drawing.Color.FromArgb((byte)transColour.Value, (byte)redColour.Value, (byte)greenColour.Value, (byte)blueColour.Value);
         }
     }
 }

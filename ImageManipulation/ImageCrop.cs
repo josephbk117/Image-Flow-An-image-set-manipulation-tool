@@ -37,5 +37,9 @@ namespace ImageManipulation
             Rectangle rect = new Rectangle(xPosition, yPosition, width, height);
             return (Bitmap)bmap.Clone(rect, bmap.PixelFormat);
         }
+        public override string ToString()
+        {
+            return "Crop : x = " + xPosition + ", y = " + yPosition + ", width = " + width + ", height = " + height;
+        }
     }
 }

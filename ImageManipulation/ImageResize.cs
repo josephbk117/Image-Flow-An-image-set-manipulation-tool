@@ -54,5 +54,9 @@ namespace ImageManipulation
         {
             bmp = (Bitmap)bitmap.Clone();
         }
+        public override string ToString()
+        {
+            return "Resize : " + " width = " + width + ", height = " + height;
+        }
     }
 }

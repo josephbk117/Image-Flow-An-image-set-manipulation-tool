@@ -126,5 +126,17 @@ namespace ImageManipulation
                 return 0;
             else return (byte)value;
         }
+        public override string ToString()
+        {
+            string kernelSizeText = "Small";
+            switch(kernelSize)
+            {
+                case 5: kernelSizeText = "Small";break;
+                case 7: kernelSizeText = "Medium";break;
+                case 11: kernelSizeText = "Large";break;
+            }
+
+            return "Blur : Kernel Size = " + kernelSizeText + ", Amount = " + blurAmount;
+        }
     }
 }

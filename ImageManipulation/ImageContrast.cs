@@ -84,5 +84,9 @@ namespace ImageManipulation
 
             return (Bitmap)bmp.Clone();
         }
+        public override string ToString()
+        {
+            return "Contrast : " + contrast;
+        }
     }
 }
