@@ -94,7 +94,7 @@ namespace ImageSetManipulationToolWpf
 
         private void generateImagesButton_OnLBU(object sender, MouseButtonEventArgs e)
         {
-            if (operationStack.Children.Count < 2)
+            if (operationStack.Children.Count < 1)
             {
                 DialogShow("No Operations", "There are no operations in the stack");
                 return;
@@ -118,6 +118,7 @@ namespace ImageSetManipulationToolWpf
                     man.SetBitmap(bitmaps[i]);
                     PerformManiplation(man, ref bitmaps[i]);
                 }
+                
                 bitmaps[i].Save(outputFolderPathTextBox.Text + "/outImage" + i + ".bmp", System.Drawing.Imaging.ImageFormat.Bmp);
             }
         }
@@ -245,7 +246,7 @@ namespace ImageSetManipulationToolWpf
             }
             AddToOperationStack(((ImagePictureOverlay)(manipulations[manipulations.Count - 1])).ToString(overlayImageTextBox.Text));
         }
-
+        
         private void AddToOperationStack(string content)
         {
             System.Windows.Controls.Label lbl = new System.Windows.Controls.Label()
@@ -388,6 +389,20 @@ namespace ImageSetManipulationToolWpf
                 int index = textBoxes.IndexOf(sender as System.Windows.Controls.TextBox);
                 (sender as System.Windows.Controls.TextBox).Text = initialText[index];
             }
+        }
+
+        private void AddRotate(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                manipulations.Add(new ImageRotation(float.Parse(rotationTextBox.Text)));
+            }
+            catch (FormatException)
+            {
+                DialogShow("Wrong Input", "Check your rotation input");
+                return;
+            }
+            AddToOperationStack(manipulations[manipulations.Count - 1].ToString());
         }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ImageSetManipulationToolWpf"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="ImageSetManipulationToolWpf.MainWindow"
         mc:Ignorable="d"
-        Title="Image Set Processing Tool" Height="740" Width="940" MinWidth="530" MinHeight="440">
+        Title="Image Set Processing Tool" Height="750" Width="896" MinWidth="530" MinHeight="440">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -625,6 +625,15 @@
                         </Button>
                     </DockPanel>
                     <DockPanel LastChildFill="False">
+                        <Label Content="Rotate" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="125" Foreground="White"/>
+                        <TextBox x:Name="rotationTextBox" Text="angle" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
+                        <Button  Width="30" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Margin="10,10,30,10" Padding="5,0,5,0" Foreground="White" Click="AddRotate">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Images/addButton.png"/>
+                            </Button.Background>
+                        </Button>
+                    </DockPanel>
+                    <DockPanel LastChildFill="False" Background="#FFFFCD46">
                         <Label Content="Blur" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="125" Foreground="White"/>
                         <ComboBox x:Name="kernelComboBox" Width="120" Margin="10,10,5,10" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFFFA02F" FontSize="16" BorderThickness="0" Background="Aqua" Style="{DynamicResource ModernComboBox}">
                             <ListBoxItem Content="Small" HorizontalContentAlignment="Center" Margin="0" Padding="4" HorizontalAlignment="Stretch" BorderThickness="0" BorderBrush="{x:Null}" Width="110"/>
@@ -638,7 +647,7 @@
                             </Button.Background>
                         </Button>
                     </DockPanel>
-                    <DockPanel LastChildFill="False" Background="#FFFFCD46">
+                    <DockPanel LastChildFill="False">
                         <Label Content="Text Overlay" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="125" Foreground="White"/>
                         <TextBox x:Name="textOverlayText" Text="Text To Be Displayed" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="324" Height="30" Margin="10,10,0,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <Button Width="30" DockPanel.Dock="Right" FontSize="16" BorderThickness="0" Margin="10,10,30,10" Padding="5,0,5,0" Foreground="White" Click="AddTextOverlay">
@@ -647,14 +656,14 @@
                             </Button.Background>
                         </Button>
                     </DockPanel>
-                    <DockPanel LastChildFill="False" Background="#FFFFCD46" >
+                    <DockPanel LastChildFill="False">
                         <TextBox x:Name="xOffset" Text="x" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="15,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <TextBox x:Name="yOffset" Text="y" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <TextBox x:Name="fontSize" Text="size" BorderThickness="0" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <ComboBox x:Name="fontFamilyComboBox" Width="254" Margin="10,10,5,10" SelectedIndex="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFFFA02F" FontSize="16" BorderThickness="0" Background="Aqua" Style="{DynamicResource ModernComboBox}"/>
                         <Rectangle x:Name="textColour" Margin="35,0,0,0" Width="34" Height="34" RadiusY="15" RadiusX="15" Stroke="White" StrokeThickness="3" Fill="White" MouseLeftButtonUp="ColourSelection_OnClick"/>
                     </DockPanel>
-                    <DockPanel LastChildFill="False">
+                    <DockPanel LastChildFill="False" Background="#FFFFCD46">
                         <Label Content="Image Overlay" FontSize="18" Margin="10,0,10,0" VerticalAlignment="Center" Width="125" Foreground="White"/>
                         <TextBox x:Name="overlayImageTextBox" Text="Image To Be Overlaid" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="244" Height="30" Margin="10,10,0,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <Rectangle Width="30" Height="30" Fill="#FFFFA02F" MouseLeftButtonUp="ImageOverlayButon_OnClick"/>
@@ -664,7 +673,7 @@
                             </Button.Background>
                         </Button>
                     </DockPanel>
-                    <DockPanel LastChildFill="False">
+                    <DockPanel LastChildFill="False" Background="#FFFFCD46">
                         <TextBox x:Name="xImageOffset" Text="x" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="155,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <TextBox x:Name="yImageOffset" Text="y" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>
                         <TextBox x:Name="imageWidth" Text="width" BorderThickness="0" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="10,10,10,10" Background="#FFFFF2A0" Foreground="#FFFFA02F" PreviewMouseLeftButtonDown="TextboxClearOnLMU"/>

@@ -55,6 +55,7 @@
     <Compile Include="IMageManipulation.cs" />
     <Compile Include="ImagePictureOverlay.cs" />
     <Compile Include="ImageResize.cs" />
+    <Compile Include="ImageRotation.cs" />
     <Compile Include="ImageTextOverlay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
